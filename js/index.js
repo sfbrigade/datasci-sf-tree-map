@@ -1,16 +1,12 @@
 /* user set variables */
-var whatMap = 'Supervisor_Districts_April_2012' // which map, defined in geometa.json
-var theDataFile = 'data/example/district-pop.csv' // csv file containing data to be mapped
-var idProperty = 'district' // geometry-identifying property in csv datafile
-var dataProperty = 'total' // property in csv datafile containing data of interest
+var whatMap = 'neighborhoods_sffind' // which map, defined in geometa.json
+var theDataFile = 'data/tree-data/neighborhood_diversity.csv' // csv file containing data to be mapped
+var idProperty = 'derived_neighborhood' // geometry-identifying property in csv datafile
+var dataProperty = 'not_diverse' // property in csv datafile containing data of interest
 var color = 'Blues' // color is set by css class, see styles.css for available colors
 var mapElement = '#map_container'
+var bucketVal = 5
 /* end user set variables */
-
-// whatMap = 'zipcodes'
-// theDataFile = 'https://numeracy.co/projects/1LWR2zAGoQH/demographics-by-zip.csv'
-// idProperty = 'ZIP'
-// dataProperty = 'Population'
 
 var theMetadata
 var theMapFile
@@ -27,15 +23,32 @@ var choropleth = Choropleth()
 var bucketSel = document.getElementById('buckets');
 [3,4,5,6,7,8,9].forEach(addOption, bucketSel);
 bucketSel.onchange = function(){ choropleth.quanta(this.value) }
-bucketSel.value = 5
+bucketSel.value = bucketVal
 
 var colorSel = document.getElementById('color-scheme');
 ['YlGn','YlGnBu','GnBu','BuGn','PuBuGn','PuBu','BuPu','RdPu','PuRd','OrRd','YlOrRd','YlOrBr','Purples','Blues','Greens','Oranges','Reds','Greys','PuOr','BrBG','PRGn','PiYG','RdBu','RdGy','RdYlBu','Spectral','RdYlGn','Accent','Dark2','Paired','Pastel1','Pastel2','Set1','Set2','Set3']
   .forEach(addOption, colorSel);
 colorSel.onchange = function(){ choropleth.colorScheme(this.value) }
-colorSel.value = 'Blues'
+colorSel.value = color
 
-var exampleDatasets = [{file: 'data/example/censustract-pop.csv',idProperty: 'tract',dataProperty: 'population',maptype: 'censustracts'}, {file: 'data/example/district-pop.csv',idProperty: 'district',dataProperty: 'total',maptype: 'Supervisor_Districts_April_2012'}, {file: 'data/example/electprecinct-dempres.csv',idProperty: 'precinct',dataProperty: 'registered_voters',maptype: 'elect_precincts'}, {file: 'data/example/zip-pop.csv',idProperty: 'zip',dataProperty: 'population',maptype: 'zipcodes'}, {file: 'https://numeracy.co/projects/1LWR2zAGoQH/demographics-by-zip.csv',idProperty: 'ZIP',dataProperty: 'Population',maptype: 'zipcodes'}]
+var srcGeo = document.getElementById('src-geo');
+['Supervisor_Districts_April_2012', 'censustracts', 'elect_precincts', 'neighborhoods_analysis', 'neighborhoods_planning', 'neighborhoods_sffind', 'realtor-neighborhoods-nosimplify', 'realtor-neighborhoods', 'zipcodes']
+  .forEach(addOption, srcGeo);
+srcGeo.onchange = function(){ 
+  setMap(this.value)
+  d3.select('svg').remove()
+  startDownloads()
+}
+srcGeo.value = whatMap
+
+var exampleDatasets = [
+  { // Associated shape file from https://data.sfgov.org/Geographic-Locations-and-Boundaries/SF-Find-Neighborhoods/pty2-tcw4
+    dataProperty: 'not_diverse',
+    file: 'data/tree-data/neighborhood_diversity.csv',
+    idProperty: 'derived_neighborhood',
+    maptype: 'neighborhoods_sffind'
+  }
+]
 var dataSelEl = document.getElementById('example-data');
 exampleDatasets.map(function(el){return el.file})
   .forEach(addOption,dataSelEl)
@@ -51,7 +64,12 @@ dataSelEl.onchange = function(){
   d3.select('svg').remove()
   startDownloads()
 }
-dataSelEl.value = ''
+dataSelEl.value = theDataFile
+
+// Set title
+var pageTitle = document.getElementById('title');
+pageTitle.innerHTML = theDataFile
+
 /* end ui demo elements */
 
 d3.json('data/geometa.json', function(err, data){
