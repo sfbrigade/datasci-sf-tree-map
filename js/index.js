@@ -34,7 +34,7 @@ colorSel.value = color
 var srcGeo = document.getElementById('src-geo');
 ['Supervisor_Districts_April_2012', 'censustracts', 'elect_precincts', 'neighborhoods_analysis', 'neighborhoods_planning', 'neighborhoods_sffind', 'realtor-neighborhoods-nosimplify', 'realtor-neighborhoods', 'zipcodes']
   .forEach(addOption, srcGeo);
-srcGeo.onchange = function(){ 
+srcGeo.onchange = function(){
   setMap(this.value)
   d3.select('svg').remove()
   startDownloads()
@@ -47,6 +47,12 @@ var exampleDatasets = [
     file: 'data/tree-data/neighborhood_diversity.csv',
     idProperty: 'derived_neighborhood',
     maptype: 'neighborhoods_sffind'
+  },
+  { // Associated shape file from https://data.sfgov.org/Geographic-Locations-and-Boundaries/SF-Find-Neighborhoods/pty2-tcw4
+    dataProperty: 'Condition',
+    file: 'data/tree-data/neighborhood_map_metrics.csv',
+    idProperty: 'derived_neighborhood',
+    maptype: 'Neighborhood'
   }
 ]
 var dataSelEl = document.getElementById('example-data');
