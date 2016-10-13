@@ -1,8 +1,8 @@
 /* user set variables */
 var whatMap = 'neighborhoods_sffind' // which map, defined in geometa.json
-var theDataFile = 'data/tree-data/neighborhood_diversity.csv' // csv file containing data to be mapped
-var idProperty = 'derived_neighborhood' // geometry-identifying property in csv datafile
-var dataProperty = 'not_diverse' // property in csv datafile containing data of interest
+var theDataFile = 'data/tree-data/neighborhood_map_metrics.csv' // csv file containing data to be mapped
+var idProperty = 'Neighborhood' // geometry-identifying property in csv datafile
+var dataProperty = 'Condition' // property in csv datafile containing data of interest
 var color = 'Greens' // color is set by css class, see styles.css for available colors
 var mapElement = '#map_container'
 var bucketVal = 10
@@ -42,12 +42,6 @@ srcGeo.onchange = function(){
 srcGeo.value = whatMap
 
 var exampleDatasets = [
-  { // Associated shape file from https://data.sfgov.org/Geographic-Locations-and-Boundaries/SF-Find-Neighborhoods/pty2-tcw4
-    dataProperty: 'not_diverse',
-    file: 'data/tree-data/neighborhood_diversity.csv',
-    idProperty: 'derived_neighborhood',
-    maptype: 'neighborhoods_sffind'
-  },
   { // Associated shape file from https://data.sfgov.org/Geographic-Locations-and-Boundaries/SF-Find-Neighborhoods/pty2-tcw4
     dataProperty: 'Condition',
     file: 'data/tree-data/neighborhood_map_metrics.csv',
