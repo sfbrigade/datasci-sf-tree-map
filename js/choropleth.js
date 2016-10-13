@@ -2,7 +2,7 @@ function Choropleth() {
   var margin = {top: 5, right: 5, bottom: 5, left: 5}
   var width = 300
   var height = width
-  var quanta = 9
+  var quanta = 10
   // var active = d3.select(null)
   var data = {}
   var geo = "districts" // objects key in topojson file

@@ -5,7 +5,7 @@ var idProperty = 'Neighborhood' // geometry-identifying property in csv datafile
 var dataProperty = 'Condition' // property in csv datafile containing data of interest
 var color = 'Greens' // color is set by css class, see styles.css for available colors
 var mapElement = '#map_container'
-var bucketVal = 10
+var bucketVal = 9
 /* end user set variables */
 
 var theMetadata
@@ -17,11 +17,11 @@ var mapElement = d3.select(mapElement)
 var choropleth = Choropleth()
 .width(parseInt(mapElement.style('width')))
 .colorScheme(color)
-.quanta(5)
+.quanta(bucketVal)
 
 /* ui demo elements */
 var bucketSel = document.getElementById('buckets');
-[3,4,5,6,7,8,9].forEach(addOption, bucketSel);
+[3,4,5,6,7,8,9,10].forEach(addOption, bucketSel);
 bucketSel.onchange = function(){ choropleth.quanta(this.value) }
 bucketSel.value = bucketVal
 
