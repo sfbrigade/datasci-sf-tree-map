@@ -20,10 +20,12 @@ var choropleth = Choropleth()
 .quanta(bucketVal)
 
 /* ui demo elements */
+/*
 var bucketSel = document.getElementById('buckets');
 [3,4,5,6,7,8,9,10].forEach(addOption, bucketSel);
 bucketSel.onchange = function(){ choropleth.quanta(this.value) }
 bucketSel.value = bucketVal
+*/
 
 var colorSel = document.getElementById('color-scheme');
 ['YlGn','YlGnBu','GnBu','BuGn','PuBuGn','PuBu','BuPu','RdPu','PuRd','OrRd','YlOrRd','YlOrBr','Purples','Blues','Greens','Oranges','Reds','Greys','PuOr','BrBG','PRGn','PiYG','RdBu','RdGy','RdYlBu','Spectral','RdYlGn','Accent','Dark2','Paired','Pastel1','Pastel2','Set1','Set2','Set3']
@@ -31,6 +33,7 @@ var colorSel = document.getElementById('color-scheme');
 colorSel.onchange = function(){ choropleth.colorScheme(this.value) }
 colorSel.value = color
 
+/*
 var srcGeo = document.getElementById('src-geo');
 ['Supervisor_Districts_April_2012', 'censustracts', 'elect_precincts', 'neighborhoods_analysis', 'neighborhoods_planning', 'neighborhoods_sffind', 'realtor-neighborhoods-nosimplify', 'realtor-neighborhoods', 'zipcodes']
   .forEach(addOption, srcGeo);
@@ -40,6 +43,7 @@ srcGeo.onchange = function(){
   startDownloads()
 }
 srcGeo.value = whatMap
+*/
 
 var exampleDatasets = [
   { // Associated shape file from https://data.sfgov.org/Geographic-Locations-and-Boundaries/SF-Find-Neighborhoods/pty2-tcw4
@@ -50,9 +54,10 @@ var exampleDatasets = [
   }
 ]
 
+/*
 var dataSelEl = document.getElementById('example-data');
 exampleDatasets.map(function(el){return el.file})
-  .forEach(addOption,dataSelEl)
+   .forEach(addOption,dataSelEl)
 dataSelEl.onchange = function(){
   var val = this.value
   var obj = exampleDatasets.find(function(el){
@@ -66,10 +71,12 @@ dataSelEl.onchange = function(){
   startDownloads()
 }
 dataSelEl.value = theDataFile
+*/
 
 // Set title
 var pageTitle = document.getElementById('title');
 pageTitle.innerHTML = theDataFile
+// pageTitle.innerHTML = theDataFile
 
 /* end ui demo elements */
 
